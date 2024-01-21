@@ -2,8 +2,19 @@
 
 namespace timer.Data.MyCustomTimer
 {
+    /// <summary>
+    /// <para>Universal time store</para>
+    /// <para>TimeOnly</para>
+    /// <para>TimeSpan</para>
+    /// <para>DateTime</para>
+    /// <para>DateTimeOffset</para>
+    /// <para>...</para>
+    /// </summary>
     internal class MyClock
     {
+        /*
+         * internal types for controling
+         */
         private int Day { get; set; }
         private int Hour { get; set; }
         private int Minute { get; set; }
@@ -17,10 +28,25 @@ namespace timer.Data.MyCustomTimer
         private int DayOfYear { get; set; }
         private int MonthOfYear { get; set; }
 
+        /*
+         * Data structure
+         */
         public TimeOnly GetTimeOnly => new TimeOnly(Hour, Minute, Second, Millisecond);
         public TimeSpan GetTimeSpan => new TimeSpan(Day, Hour, Minute, Second, Millisecond);
         public DateTime GetDateTime => new DateTime(0, 0, Day, Hour, Minute, Second, Millisecond);
         public DateTimeOffset GetDateTimeOffset => new DateTimeOffset(0, 0, Day, Hour, Minute, Second, Millisecond, new TimeSpan(1, 0, 0));
+
+        //Json
+        //Xml 
+        //Csv
+        //Txt
+        //Custom format
+        //File format
+        
+        //Output
+        //console
+        //file
+        //other diff file structure
 
         public string ToStringClock() => Day + " " + Hour + ":" + Minute + ":" + Second + " " + Millisecond;
         public string ToStringShortClock() => Hour + ":" + Minute + ":" + Second;
@@ -81,6 +107,10 @@ namespace timer.Data.MyCustomTimer
             Second = DateTime.Now.Second;
             Millisecond = DateTime.Now.Millisecond;
         }
+
+        /*
+         * Сalculations, Conditions, Time arithmetic
+         */
 
         /// <summary>
         /// Сравнивает значения двух часов
@@ -235,5 +265,10 @@ namespace timer.Data.MyCustomTimer
         {
             throw new NotImplementedException();
         }
+
+        /*
+         * CRUD
+         */
+
     }
 }

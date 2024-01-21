@@ -1,2 +1,2 @@
-# blazor
-Tips, notes, tasks, solutions for Blazor web applications using C# and .NET instead of JavaScript
+# Blazor timer
+Blazor web applications with visual timer component and time store backend

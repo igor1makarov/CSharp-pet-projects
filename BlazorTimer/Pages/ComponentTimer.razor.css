@@ -1,0 +1,22 @@
+﻿input[type="time"].main-timer {
+	border: 0;
+	padding: 10px;
+	margin: 10px;
+	font-size: 72px;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	line-height: normal;
+}
+
+input[type="time"].pause-timer {
+	border: 0;
+	padding: 10px;
+	margin: 10px;
+	font-size: 32px;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	line-height: normal;
+
+}
+
+	input[type="time"].pause-timer::-webkit-calendar-picker-indicator {
+		display: none;
+	}

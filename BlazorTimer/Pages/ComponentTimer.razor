@@ -1,0 +1,38 @@
+﻿@*<div class="container">
+	<h3 id="headline">Timespeaker</h3>
+	<div id="countdown">
+		<ul>
+			<li><span id="days"></span>Day</li>
+			<li><span id="hours"></span>Day</li>
+			<li><span id="minutes"></span>Day</li>
+			<li><span id="seconds"></span>Day</li>
+			<li><span id="miliseconds"></span>Day</li>
+		</ul>
+	</div>
+	<div id="content" class="emoji">
+		<span>😂</span>
+		<span>🥶</span>
+		<span>😾</span>
+	</div>
+</div>*@
+
+<div class="UsTimer">
+	<input class="main-timer" type="time" @bind="startTimerValue" step="0.001" autofocus required />
+</div>
+
+<div class="UsPause">
+	<input class="pause-timer" type="time" value="00:00:00.000" step="0.001" autofocus required />
+</div>
+
+<button class="btn btn-primary" @onclick="Start">Click</button>
+
+@code {
+
+	System.TimeOnly startTimerValue = new TimeOnly(00, 02, 00, 000);
+
+	async Task Start()
+	{
+		await Task.Run(() => "");
+	}
+
+}

@@ -1,0 +1,59 @@
+﻿fluent-card {
+    --card-height: 400px;
+    --card-width: 500px;
+    padding: 20px;
+    margin: 12px;
+}
+
+.class-override {
+    height: 163px;
+    width: 300px;
+}
+
+.state-override {
+    --card-width: 350px;
+    --card-height: 300px;
+    --elevation: 6;
+}
+
+    .state-override:hover {
+        --elevation: 12;
+    }
+
+.contents {
+    display: flex;
+    flex-direction: column;
+}
+
+.pmo-tooltip {
+    margin: 25px;
+    width: 510px;
+    height: 500px;
+}
+    .pmo-tooltip input {
+        font-size: 72px;
+    }
+
+    .pmo-tooltip input:focus {
+        border: 0;
+        outline: none;
+    }
+
+    .pmo-tooltip textarea {
+        border: 0;
+        font-size: 72px;
+        text-align: center;
+        width: 757px;
+        height: 230px;
+    }
+    .pmo-tooltip textarea:focus {
+        outline: none;
+    }
+
+.main-pmo-tooltip {
+
+    /*text-align: center;*/
+
+    /*margin-top: 275px;*/
+}
+

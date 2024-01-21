@@ -1,0 +1,187 @@
+﻿@page "/"
+@using timer.Data.MyCustomTimer;
+
+<style>
+    input.main-timer {
+        border: 0;
+        padding: 10px;
+        margin: 10px;
+        font-size: 72px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        line-height: normal;
+    }
+    
+    input.pause-timer {
+        border: 0;
+        padding: 10px;
+        margin: 10px;
+        font-size: 32px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        line-height: normal;
+    }
+    
+    input.pause-timer::-webkit-calendar-picker-indicator {
+        display: none;
+    }
+</style>
+
+<InputDate class="main-timer" Type="InputDateType.Time" TValue="TimeOnly" Value="_elapsedTime" ValueChanged="TimeChanged" ValueExpression="() => _elapsedTime" step="1" />
+<InputDate class="pause-time" Type=" InputDateType.Time" TValue="TimeOnly" Value="_elapsedPauseTimer" ValueChanged="TimeChanged" ValueExpression="() => _elapsedPauseTimer" step="1" />
+<FluentButton @onclick="Start"> Start </FluentButton>
+
+@*<FluentTabs Orientation="Orientation.Vertical">
+
+    <FluentTab>Slide 1: Greeting</FluentTab>
+    <FluentTab>Slide 2: Timer</FluentTab>
+    <FluentTab>Slide 3: Selecting</FluentTab>
+
+    <FluentTabPanel>
+        <!-- First slide-->
+        <div class="main-pmo-tooltip">
+            <FluentButton id="visible1" Appearance=Appearance.Neutral @onclick=ToggleVisible>
+                Greet
+            </FluentButton>
+            <FluentTooltip Anchor="visible1" class="pmo-tooltip" Position=TooltipPosition.Right Delay=425 Visible=@visible @ontooltipdismiss=OnDismiss>
+                <textarea> @greeting </textarea>
+            </FluentTooltip>
+        </div>
+    </FluentTabPanel>
+    
+    <FluentTabPanel>
+        <!-- Second slide -->
+        <InputDate class="main-timer" Type="InputDateType.Time" TValue="TimeOnly" Value="_elapsedTime" ValueChanged="TimeChanged" ValueExpression="() => _elapsedTime" step="1" />
+        <InputDate class="pause-time" Type=" InputDateType.Time" TValue="TimeOnly" Value="_elapsedPauseTimer" ValueChanged="TimeChanged" ValueExpression="() => _elapsedPauseTimer" step="1" />
+            <FluentButton @onclick="Start"> Start </FluentButton>
+            <FluentButton> Pause </FluentButton>
+            <FluentButton> Reset </FluentButton>
+            <FluentButton> 5 min </FluentButton>
+            <FluentButton> 2 min </FluentButton>
+            <FluentButton> 1 min </FluentButton>
+    </FluentTabPanel>
+    
+    <FluentTabPanel>
+            <!-- Third slide -->
+            @*<p>
+            Selected Time keeper: @intValue<br />
+            Selected Item (strongly typed): <br />
+            Value: @selectedIntOption?.Value (Type: @(selectedIntOption?.Value.GetType())) <br />
+            Text: @selectedIntOption?.Text
+            </p>
+            <FluentListbox Items=@intOptions
+            TOption="Option<int>"
+            OptionText="@(i => i.Text.ToString())"
+            OptionValue="@(i => i.Value.ToString())"
+            OptionDisabled="@(i => i.Disabled)"
+            @bind-SelectedOption="@selectedIntOption"
+            @bind-Value="@intValue" />
+
+            <p>
+            Selected Speaker: @intValue<br />
+            Selected Item (strongly typed): <br />
+            Value: @selectedIntOption?.Value (Type: @(selectedIntOption?.Value.GetType())) <br />
+            Text: @selectedIntOption?.Text
+            </p>
+            <FluentListbox Items=@intOptions
+            TOption="Option<int>"
+            OptionText="@(i => i.Text.ToString())"
+            OptionValue="@(i => i.Value.ToString())"
+            OptionDisabled="@(i => i.Disabled)"
+            @bind-SelectedOption="@selectedIntOption"
+            @bind-Value="@intValue" />
+    </FluentTabPanel>
+
+</FluentTabs>*@
+
+@code {
+    TimeOnly _elapsedTime = new TimeOnly(0, 2, 11, 250);
+    TimeOnly _elapsedPauseTimer = new TimeOnly(0, 0, 0, 000);
+
+    TimeOnly elapsedTime { get; set; }
+
+    MyClock? myClock { get; set; }
+    MyTimer? GetMyTimer;
+
+    bool end;
+    string greeting = @"🐱‍👤Приветствую всех!";
+    bool visible = false;
+
+    AutoUpdateMode autoUpdateMode = AutoUpdateMode.Auto;
+    Option<int>? selectedIntOption;
+    FluentTab? changedto;
+
+    private void PauseTimeChanged(TimeOnly value)
+    {
+        _elapsedTime = value;
+    }
+
+    private void TimeChanged(TimeOnly value)
+    {
+        _elapsedTime = value;
+    }
+
+    protected override void OnInitialized()
+    {
+        //Start();
+    }
+
+    void Start()
+    {
+        GetMyTimer = new MyTimer(TimeSpan.FromMilliseconds(1), _elapsedTime);
+
+        GetMyTimer.Start(() =>
+        {
+            _elapsedTime = GetMyTimer.GetIntervalTimeOnly();
+
+            InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
+        },
+        () =>
+        {
+            end = true;
+        });
+    }
+
+    private void Methodor()
+    {
+    }
+
+    private void HandleOnTabChange(FluentTab tab)
+    {
+        changedto = tab;
+    }
+
+    private void OnDismiss()
+    {
+        visible = false;
+        //logger.LogInformation("Tooltip dismissed!");
+    }
+
+    private void ToggleVisible()
+    {
+        visible = !visible;
+    }
+
+    List<Option<string>> stringOptions = new()
+    {
+        { new Option<string> { Value = "1", Text = "One" } },
+        { new Option<string> { Value = "2", Text = "Two", Selected = true } },
+        { new Option<string> { Value = "3", Text = "Three" } }
+
+    };
+
+    List<Option<int>> intOptions = new()
+    {
+        { new Option<int> { Value = 1, Text = 1, Disabled = true } },
+        { new Option<int> { Value = 2, Text = 2 } },
+        { new Option<int> { Value = 3, Text = 3 } }
+
+    };
+}
+
+@*<FluentDesignSystemProvider FillColor="#CAC5F9">
+    <FluentCard neutral-palette-source="#A39CFF">
+        <SurveyPrompt Title="How is Blazor working for you?" />
+    </FluentCard>
+</FluentDesignSystemProvider>*@

@@ -14,6 +14,7 @@ namespace timer.Data.MyCustomTimer
     {
         /*
          * internal types for controling
+         * data format
          */
         private int Day { get; set; }
         private int Hour { get; set; }
@@ -51,6 +52,11 @@ namespace timer.Data.MyCustomTimer
         public string ToStringClock() => Day + " " + Hour + ":" + Minute + ":" + Second + " " + Millisecond;
         public string ToStringShortClock() => Hour + ":" + Minute + ":" + Second;
 
+        /*
+         * init data structure to data format 
+         * [] <=> [] 
+         * максимальное приведение типов через паттерны
+         */
         public MyClock(TimeOnly timeOnly)
         {
             Day = 0;
